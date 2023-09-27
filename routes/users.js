@@ -8,7 +8,7 @@ require('dotenv').config()
 
 
 // disable for production?
-/*router.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
     const users = await prisma.users.findMany()
     console.log("users GET")
     res.send({ 
@@ -20,13 +20,15 @@ require('dotenv').config()
 // restrict for production
 router.get('/:id', async (req, res) => {
 
+    const userId = parseInt(req.params.id);
+
     const user = await prisma.users.findUnique({
-        where: {id: req.params.id}
+        where: {id: userId}
     })
 
     console.log("users GET ONE")
     res.send({ msg: 'users', user: user })
-}) */
+}) 
 
 router.post('/login', async (req, res) => {
     try {
@@ -79,7 +81,7 @@ router.post('/', async (req, res) => {
     res.send({ msg: 'user created', id: user.id })
 })
 
-/*
+
 router.patch('/:id', async (req, res) => {
 
     if (req.params.id != req.authUser.sub) {
@@ -134,6 +136,6 @@ router.delete('/:id', async (req, res) => {
         })
     }
 })
-*/
+
 
 module.exports = router

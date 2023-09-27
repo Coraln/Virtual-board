@@ -7,7 +7,7 @@ GET {{apiUrl}}
 Authorization: Bearer {{token}}
 
 ###
-GET {{apiUrl}}/64f9a89c3192a9bf9d0e740a
+GET {{apiUrl}}/5
 Authorization: Bearer {{token}}
 
 ### Logga in på /users/login
@@ -15,7 +15,7 @@ POST {{apiUrl}}/login
 Content-Type: application/json
 
 {
-    "email": "fredde@foo.baz",
+    "email": "kiim@foo.baz",
     "password": "Password123"
 }
 
@@ -24,12 +24,12 @@ POST {{apiUrl}}
 Content-Type: application/json
 
 {
-    "email": "kim@foo.baz",
+    "email": "test@foo.baz",
     "password": "Password123"
 }
 
 ### 
-PATCH {{apiUrl}}/64f9a89c3192a9bf9d0e740a
+PATCH {{apiUrl}}/2
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{apiUrl}}/64f9aa07539b7df1d8de2397
+DELETE {{apiUrl}}/6
 Authorization: Bearer {{token}}
 
 ###
