@@ -1,6 +1,7 @@
 @apiUrl = http://localhost:3030/users
 #@apiUrl = https://notes-fredde-23.azurewebsites.net/users
 @token = {{$dotenv TOKEN}}
+@jwt = {{$dotenv JWT}}
 
 ###
 GET {{apiUrl}}
@@ -15,7 +16,7 @@ POST {{apiUrl}}/login
 Content-Type: application/json
 
 {
-    "email": "kiim@foo.baz",
+    "email": "tesysyt@foo.baz",
     "password": "Password123"
 }
 
@@ -24,21 +25,21 @@ POST {{apiUrl}}
 Content-Type: application/json
 
 {
-    "email": "test@foo.baz",
+    "email": "tesysyt@foo.baz",
     "password": "Password123"
 }
 
 ### 
-PATCH {{apiUrl}}/2
+PATCH {{apiUrl}}/15
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "password": "Password123"
+    "email": "changed@gmail.com"
 }
 
 ###
-DELETE {{apiUrl}}/6
+DELETE {{apiUrl}}/2
 Authorization: Bearer {{token}}
 
 ###

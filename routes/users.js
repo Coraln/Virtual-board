@@ -83,48 +83,52 @@ router.post('/', async (req, res) => {
 
 
 router.patch('/:id', async (req, res) => {
+    const userId = parseInt(req.params.id);
 
-    if (req.params.id != req.authUser.sub) {
+    if (userId !== req.authUser.sub) {
         res.status(403).send({
             msg: 'ERROR',
             error: 'Cannot patch other users'
         })
     }
 
-    const hash = null
+    let hash = null;
     if (req.body.password) {
         hash = await bcrypt.hash(req.body.password, 12)
     }
 
-    const user = await prisma.users.update({
+    const updatedUser = await prisma.users.update({
         where: {
-            id: req.params.id,
+            id: userId,
         },
         data: {
             password: hash,
-            name: req.params.name,
-            updatedAt: new Date()
+            name: req.body.name, // Use req.body.name for the user's name
+            updatedAt: new Date(),
         },
-    })
+    });
+
     res.send({
         msg: 'patch',
-        id: req.params.id,
-        user: user
-    })
-})
+        id: userId,
+        user: updatedUser,
+    });
+});
 
 router.delete('/:id', async (req, res) => {
+
+    const userId = parseInt(req.params.id);
 
     try {
 
         const user = await prisma.users.delete({
             where: {
-                id: req.params.id,
+                id: userId,
             }
         })
         res.send({
             msg: 'deleted',
-            id: req.params.id,
+            id: userId,
             user: user
         })
     } catch (err) {
