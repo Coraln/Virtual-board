@@ -85,7 +85,7 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
     const userId = parseInt(req.params.id);
 
-    if (userId !== req.authUser.sub) {
+    if (userId !== req.authUser) {
         res.status(403).send({
             msg: 'ERROR',
             error: 'Cannot patch other users'

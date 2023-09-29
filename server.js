@@ -26,6 +26,9 @@ app.use('/notes', authorizeToken, notesRouter)
 const usersRouter = require('./routes/users.js')
 app.use('/users', usersRouter)
 
+const boardsRouter = require('./routes/boards');
+app.use('/boards', boardsRouter);
+
 
 console.log("Morjens Node!") 
 

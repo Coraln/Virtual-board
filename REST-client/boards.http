@@ -1,0 +1,10 @@
+@apiUrl = http://localhost:3030/boards
+#@apiUrl = https://notes-fredde-23.azurewebsites.net/boards
+@token = {{$dotenv TOKEN}}
+@jwt = {{$dotenv JWT}}
+
+###
+GET {{apiUrl}}
+Authorization: Bearer {{token}}
+
+###
