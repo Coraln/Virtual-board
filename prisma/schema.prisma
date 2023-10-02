@@ -2,80 +2,56 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 // MONGODB
-//datasource db {
-//  provider = "mongodb"
-//  url      = env("DATABASE_URL")
-//}
-
-// POSTGRESQL
 datasource db {
-  provider = "postgresql"
-  url      = env("POST_URL")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
-
-model notes {
-
-  // postgresql ->
-  id Int @id @default(autoincrement())
-  userId Int
-
-  // mongodb ->
-  //id String @id @default(auto()) @map("_id") @db.ObjectId
-  //userId String?
-
-  noteText String?
-  createdAt DateTime? @default(now()) 
-  updatedAt DateTime? @default(now())
-}
-
 
 model users {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  email        String         @unique
+  name         String?
+  password     String?
+  boardMembers boardMembers[]
+  notes        notes[]
 
-  // postgresql ->
-  id     Int    @id @default(autoincrement())
-
-  // mongodb ->
-  //id      String   @id @default(auto()) @map("_id") @db.ObjectId
-
-  email   String   @unique
-  name    String?
-  password String?
-  createdAt DateTime @default(now()) 
+  createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-
-  boards    userBoard[]
 }
 
 model boards {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  description  String?
+  ownerId      String         @db.ObjectId
+  boardMembers boardMembers[] // Relationship: a board can have multiple members
+  notes        notes[] // Relationship: a board can have multiple notes
 
-  // postgresql ->
-  id     Int    @id @default(autoincrement())
-
-  // mongodb ->
-  //id      String   @id @default(auto()) @map("_id") @db.ObjectId
-
-  name        String
-  description String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now())
-
-  members     userBoard[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 }
 
-model userBoard {
-  //id        Int      @id @default(autoincrement())
-  userId    Int
-  boardId   Int
+// Define the boardMembers model to represent the relationship between users and boards
+model boardMembers {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String @db.ObjectId
+  boardId String @db.ObjectId
+  user    users  @relation(fields: [userId], references: [id])
+  board   boards @relation(fields: [boardId], references: [id])
+
   createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
 
-  // Define foreign key constraints
-  @@unique([userId, boardId])
-  @@index([userId])
-  @@index([boardId])
+model notes {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  noteText String?
+  userId   String  @db.ObjectId
+  boardId  String  @db.ObjectId
+  user     users   @relation(fields: [userId], references: [id])
+  board    boards  @relation(fields: [boardId], references: [id])
 
-  // Define relationships
-  user      users     @relation(fields: [userId], references: [id])
-  board     boards    @relation(fields: [boardId], references: [id])
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @default(now())
 }
