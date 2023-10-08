@@ -7,6 +7,8 @@ const prisma = new PrismaClient()
 require('dotenv').config()
 
 
+
+
 // disable for production?
 router.get('/', async (req, res) => {
     const users = await prisma.users.findMany()
@@ -32,39 +34,66 @@ router.get('/:id', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const user = await prisma.users.findUnique({
-            where: {email: req.body.email}
-        })
+    
+            const user = await prisma.users.findUnique({
+                where: {email: req.body.email}
+            })
+    
+            if (user == null) {
+                return res.status(404).send({msg: 'ERROR', error: 'User not found'})
+            }
+    
+            const match = await bcrypt.compare(req.body.password, user.password)
+    
+            if (!match) {
+                return res.status(401).send({msg: 'ERROR', error: 'Wrong password'})
+            }
+    
+            const token = await jwt.sign({ 
+                sub: user.id, 
+                email: user.email, 
+                name: user.name,
+                expiresIn: '1d'
+            }, process.env.JWT_SECRET)
 
-        if (user == null) {
-            return res.status(404).send({msg: 'ERROR', error: 'User not found'})
+            // Send the token to the note taking project
+        const axios = require('axios');
+
+
+        console.log('Sending token:', token);
+        console.log("Secret key to encode: " + process.env.JWT_SECRET);
+
+        try {
+            const response = await axios.post('http://localhost:3000/receiveToken', { token });
+            console.log('Token sent successfully');
+            //console.log('Response from NTW:', response.data);
+            window.location.href = 'http://localhost:3000/public';
+        } catch (error) {
+            //console.error('Error sending token:', error.response);
+            console.error('Error response status: ', error.response.status);
+            console.error('Error response data: ', error.response.data);
         }
 
-        const match = await bcrypt.compare(req.body.password, user.password)
-
-        if (!match) {
-            return res.status(401).send({msg: 'ERROR', error: 'Wrong password'})
-        }
-
-        const token = await jwt.sign({ 
-            sub: user.id, 
-            email: user.email, 
-            name: user.name,
-            expiresIn: '1d'
-        }, process.env.JWT_SECRET)
+        
 
         res.send({
             token: token, 
             msg: "Login successful", 
             userId: user.id,
             userEmail: user.email
-        })
-
+        });
+        console.log("Server response:", JSON.stringify({
+            token: token, 
+            msg: "Login successful", 
+            userId: user.id,
+            userEmail: user.email
+        }));
     } catch (error) {
-        
+        // ... handle errors ...
     }
+});
 
-})
+
 
 router.post('/', async (req, res) => {
 

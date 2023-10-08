@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config() // läs in alla variabler i .env
 
 module.exports = (req, res, next) => {
-    console.log('auth middleware')
+    console.log('LOG: middleware/auth.js - trying to verify JWT token')
 
     try {
         // plocka ut jwt från headern
@@ -14,14 +14,14 @@ module.exports = (req, res, next) => {
         // spara användarinfo i req
         req.authUser = authUser
 
-        console.log(authUser)
+        console.log("User: " + authUser + " authenticated with JWT token (middleware/auth.js)")
 
         next()
 
     } catch (error) {
         console.log("JWT error: ", error.message)
         res.status(401).send({
-            msg: "Authorization failed",
+            msg: "Authorization failed in middleware/auth.js",
             error: error.message
         })
 

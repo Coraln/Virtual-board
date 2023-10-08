@@ -14,34 +14,8 @@
     <p id="status"></p>
     
 
-    <script>
-        console.log("hello");
-
-        async function logIn() {
-
-            const res = await fetch('http://localhost:3030/users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: document.querySelector('#email').value,
-                    password: document.querySelector('#password').value
-                })
-            });
-
-            const resJson = await res.json();
-            document.querySelector('#status').innerHTML = `
-                Välkommen ${resJson.userEmail.split('@')[0]}!
-
-                <p>Din JWT: <pre>${resJson.token}</pre></p>
-            `;
-
-            console.log(resJson);
-
-        }
-
-        document.querySelector('#send').addEventListener('click', logIn);
-    </script>
+    <script src="./app.js"></script>
+        
+    
 </body>
 </html>

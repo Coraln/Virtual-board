@@ -1,6 +1,6 @@
 @apiUrl = http://localhost:3030/users
 #@apiUrl = https://notes-fredde-23.azurewebsites.net/users
-@token = {{$dotenv TOKEN}}
+@token = {{$dotenv DATABASE_URL}}
 @jwt = {{$dotenv JWT}}
 
 ###
@@ -25,7 +25,7 @@ POST {{apiUrl}}
 Content-Type: application/json
 
 {
-    "email": "tesysyt@foo.baz",
+    "email": "isak@foo.baz",
     "password": "Password123"
 }
 
