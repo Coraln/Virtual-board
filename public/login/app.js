@@ -65,7 +65,7 @@ async function logIn() {
 
             // Fetch private data from the note-taking server
             const token = localStorage.getItem('token');
-            const privateData = await fetch('http://localhost:3000/private', {
+            const privateData = await fetch('https://w-o-m-2023.azurewebsites.net/private', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -77,7 +77,7 @@ async function logIn() {
             
 
             // Redirect to the desired location with token in url
-            window.location.href = `http://localhost:3000/public/index.html?token=${resJson.token}`;
+            window.location.href = `https://w-o-m-2023.azurewebsites.net/public/index.html?token=${resJson.token}`;
 
             // Wait for a short moment for the redirect to happen
             /*setTimeout(() => {
