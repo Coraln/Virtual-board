@@ -75,13 +75,10 @@ router.post('/login', async (req, res) => {
         console.log("Secret key to encode: " + process.env.JWT_SECRET);
 
         try {
-            const response = await axios.post('http://localhost:3000/receiveToken', { token });
+            const response = await axios.post('https://w-o-m-2023.azurewebsites.net/receiveToken', { token });
             console.log('Token sent successfully');
-            //window.location.href = 'http://localhost:3000/public/index.html';
+            
         } catch (error) {
-            //console.error('Error sending token:', error.response);
-            //console.error('Error response status: ', error.response.status);
-            //console.error('Error response data: ', error.response.data);
             console.error("Cannot send token to localhost:3000/receiveToken");
         }
 
@@ -101,7 +98,6 @@ router.post('/login', async (req, res) => {
         console.log("Error from routers/user.js post /login function", error);
     }
 
-    //window.location.href = 'http://localhost:3000/public/index.html';
 });
 
 
