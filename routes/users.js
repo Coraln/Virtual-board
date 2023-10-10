@@ -22,7 +22,11 @@ router.get('/', async (req, res) => {
 // restrict for production
 router.get('/:id', async (req, res) => {
 
-    const userId = parseInt(req.params.id);
+    //const userId = parseInt(req.params.id);
+
+    const userId = req.params.id;
+
+    console.log(userId);
 
     const user = await prisma.users.findUnique({
         where: {id: userId}
@@ -31,6 +35,8 @@ router.get('/:id', async (req, res) => {
     console.log("users GET ONE")
     res.send({ msg: 'users', user: user })
 }) 
+
+
 
 router.post('/login', async (req, res) => {
     try {
@@ -67,7 +73,7 @@ router.post('/login', async (req, res) => {
             const response = await axios.post('http://localhost:3000/receiveToken', { token });
             console.log('Token sent successfully');
             //console.log('Response from NTW:', response.data);
-            window.location.href = 'http://localhost:3000/public';
+            //window.location.href = 'http://localhost:3000/public/index.html';
         } catch (error) {
             //console.error('Error sending token:', error.response);
             console.error('Error response status: ', error.response.status);
@@ -91,6 +97,8 @@ router.post('/login', async (req, res) => {
     } catch (error) {
         // ... handle errors ...
     }
+
+    //window.location.href = 'http://localhost:3000/public/index.html';
 });
 
 
@@ -112,7 +120,9 @@ router.post('/', async (req, res) => {
 
 
 router.patch('/:id', async (req, res) => {
-    const userId = parseInt(req.params.id);
+    //const userId = parseInt(req.params.id);
+
+    const userId = req.params.id;
 
     if (userId !== req.authUser) {
         res.status(403).send({
@@ -146,7 +156,9 @@ router.patch('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
 
-    const userId = parseInt(req.params.id);
+    //const userId = parseInt(req.params.id);
+
+    const userId = req.params.id;
 
     try {
 

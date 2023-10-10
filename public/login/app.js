@@ -40,10 +40,10 @@ async function logIn() {
 
         if (resJson.ok) {
             // Login successful, do something with the data
-            console.log('Login successful', data);
+            console.log('Login successful', resJson);
         } else {
             // Login failed, handle error
-            console.error('Login failed', data);
+            console.error('Login failed', resJson);
         }
 
         // Save the token to local storage
@@ -59,11 +59,13 @@ async function logIn() {
 
         // Redirect to the desired location
         console.log('Redirecting to http://localhost:3000/public/');
-        //window.location.href = 'http://localhost:3000/public/index.html';
+        window.location.href = 'http://localhost:3000/public/index.html';
     } catch (error) {
         console.error('Error logging in:', error);
         document.querySelector('#status').innerHTML = 'Error logging in';
     }
+
+    console.log("End of login function in app.js");
 }
 
 
