@@ -35,7 +35,6 @@ app.use('/users', usersRouter)
 const boardsRouter = require('./routes/boards');
 app.use('/boards', boardsRouter);
 
-
 console.log("Morjens Node!") 
 
 app.listen(PORT, () => {

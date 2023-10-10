@@ -29,16 +29,20 @@
 
         // Message listener
         socket.onmessage = function (event) {
-            console.log('Received message:', event.data);
-            const data = JSON.parse(event.data);
+            try {
+                console.log('Received message:', event.data);
+                const data = JSON.parse(event.data);
 
-            if (data.status == 0) {
-                document.querySelector('#out').innerHTML = data.msg;
-                document.querySelector('#err').innerHTML = '';
-            } else {
-                document.querySelector('#err').innerHTML = data.msg;
+                if (data.status === 0) {
+                    document.querySelector('#out').innerHTML = data.msg;
+                    document.querySelector('#err').innerHTML = '';
+                } else {
+                    document.querySelector('#out').innerHTML = '';
+                    document.querySelector('#err').innerHTML = data.msg;
+                }
+            } catch (error) {
+                console.error('Error processing WebSocket message:', error);
             }
-            
         };
 
         // test
