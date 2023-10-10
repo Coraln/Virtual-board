@@ -80,8 +80,9 @@ router.post('/login', async (req, res) => {
             //window.location.href = 'http://localhost:3000/public/index.html';
         } catch (error) {
             //console.error('Error sending token:', error.response);
-            console.error('Error response status: ', error.response.status);
-            console.error('Error response data: ', error.response.data);
+            //console.error('Error response status: ', error.response.status);
+            //console.error('Error response data: ', error.response.data);
+            console.error("Cannot send token to localhost:3000/receiveToken");
         }
 
         res.send({

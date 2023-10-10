@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3030
 app.use(cors());
 
 const corsOptions = {
-    origin: ['http://localhost:3030', 'http://localhost:3000'],
+    origin: ['http://localhost:3000'],
 };
 
 app.use(cors(corsOptions));
@@ -22,6 +22,21 @@ app.get('/', (req, res) => {
 
 // statiska sidor i public-katalogen
 app.use('/public', express.static(__dirname + '/public'))
+
+app.get('/private', authorizeToken, (req, res) => {
+    // Forward the request to the note-taking server
+    const token = req.headers.authorization;
+    fetch('http://localhost:3000/private', {
+      method: 'GET',
+      headers: {
+        'Authorization': token
+      }
+    })
+    .then(response => response.json())
+    .then(data => res.json(data))
+    .catch(error => res.status(500).json({ error: 'Internal Server Error' }));
+  });
+  
 
 // middleware-funktion, validerar jwt
 //app.use(authorizeToken);

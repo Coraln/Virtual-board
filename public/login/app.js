@@ -57,113 +57,58 @@ async function logIn() {
       document.querySelector('#status').innerHTML = 'Login failed';
   }
 
-    /* if (resJson.ok) {
-        // Login successful, do something with the data
-        console.log('Login successful', resJson);
-    } else {
-        // Login failed, handle error
-        console.error('Login failed', resJson);
-    } */
+        if (resJson.msg === 'Login successful') {
+            // Save the token to local storage
+            localStorage.setItem('token', resJson.token);
+            console.log("Token saved to localStorage");
 
-    // Save the token to local storage
-    localStorage.setItem('token', resJson.token);
-    console.log("Now it should have saved tokento localStorage");
+            // Fetch private data from the note-taking server
+            const token = localStorage.getItem('token');
+            const privateData = await fetch('http://localhost:3000/private', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(response => response.json());
 
-    document.querySelector('#status').innerHTML = `
-                Välkommen ${resJson.userEmail.split('@')[0]}!
+            console.log('Private Data:', privateData);
 
-                <p>Din JWT: <pre>${resJson.token}</pre></p>
-            `;
+            
 
-    const response = await fetch('http://localhost:3000/verifyToken', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        token: resJson.token
-      })
-    });
+            // Redirect to the desired location with token in url
+            window.location.href = `http://localhost:3000/public/index.html?token=${resJson.token}`;
 
-    const server2Response = await response.json();
+            // Wait for a short moment for the redirect to happen
+            /*setTimeout(() => {
+                populateBoardsDropdown(privateData.user.accessibleBoards);
+            }, 1000); // Adjust the delay as needed */
+        } else {
+            // Handle login failure
+            document.querySelector('#status').innerHTML = 'Error logging in';
+        }
 
-    console.log("VB-azure verifyToken response: ", server2Response);
-
-    if (server2Response.msg === 'Success') {
-      // User authenticated successfully, do something with the accessibleItems
-      console.log('User authenticated successfully:', server2Response.user);
-    } else {
-      // Handle error
-      console.error('Error:', server2Response.msg);
+    } catch (error) {
+        console.error('Error logging in:', error);
+        document.querySelector('#status').innerHTML = 'Error logging in';
     }
-
-    // Redirect to the desired location
-    //console.log('Redirecting to http://localhost:3000/public/');
-
-    //window.location.href = 'http://localhost:3000/public/index.html';
-  } catch (error) {
-    console.error('Error logging in:', error);
-    document.querySelector('#status').innerHTML = 'Error logging in';
-  }
 
   console.log("End of login function in app.js");
 }
 
-document.querySelector('#send').addEventListener('click', logIn);
 
-console.log("End of app.js");
 
-    /* if (resJson.ok) {
-        // Login successful, do something with the data
-        console.log('Login successful', resJson);
-    } else {
-        // Login failed, handle error
-        console.error('Login failed', resJson);
-    } */
 
-    // Save the token to local storage
-    localStorage.setItem('token', resJson.token);
-    console.log("Now it should have saved tokento localStorage");
 
-    document.querySelector('#status').innerHTML = `
-                Välkommen ${resJson.userEmail.split('@')[0]}!
 
-                <p>Din JWT: <pre>${resJson.token}</pre></p>
-            `;
 
-    const response = await fetch('http://localhost:3000/verifyToken', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        token: resJson.token
-      })
-    });
 
-    const server2Response = await response.json();
 
-    console.log("VB-azure verifyToken response: ", server2Response);
 
-    if (server2Response.msg === 'Success') {
-      // User authenticated successfully, do something with the accessibleItems
-      console.log('User authenticated successfully:', server2Response.user);
-    } else {
-      // Handle error
-      console.error('Error:', server2Response.msg);
-    }
 
-    // Redirect to the desired location
-    //console.log('Redirecting to http://localhost:3000/public/');
 
-    //window.location.href = 'http://localhost:3000/public/index.html';
-  } catch (error) {
-    console.error('Error logging in:', error);
-    document.querySelector('#status').innerHTML = 'Error logging in';
-  }
 
-  console.log("End of login function in app.js");
-}
+
+
 
 document.querySelector('#send').addEventListener('click', logIn);
 
