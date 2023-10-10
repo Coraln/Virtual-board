@@ -8,7 +8,7 @@ GET {{apiUrl}}
 Authorization: Bearer {{token}}
 
 ###
-GET {{apiUrl}}/5
+GET {{apiUrl}}/650044d3114495b6a2481466
 Authorization: Bearer {{token}}
 
 ### Logga in på /users/login
@@ -16,7 +16,7 @@ POST {{apiUrl}}/login
 Content-Type: application/json
 
 {
-    "email": "tesysyt@foo.baz",
+    "email": "isak@foo.baz",
     "password": "Password123"
 }
 
