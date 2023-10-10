@@ -16,7 +16,7 @@ POST {{apiUrl}}/login
 Content-Type: application/json
 
 {
-    "email": "tesysyt@foo.baz",
+    "email": "isak@foo.baz",
     "password": "Password123"
 }
 
