@@ -4,7 +4,7 @@
 console.log("Start of app.js");
 
 
-async function logIn() {
+/*async function logIn() {
   console.log("logIn function called");
   try {
     //const res = await fetch('http://localhost:3030/users/login', {
@@ -29,11 +29,12 @@ async function logIn() {
 //CLIENT-SIDE SCRIPT, THAT SENDS MESSAGES TO AND RECIEVES FROM SERVER
 console.log("Start of app.js");
 
-
+*/
 async function logIn() {
   console.log("logIn function called");
   try {
-    const res = await fetch('https://w-o-m-23.azurewebsites.net/login', {
+    //const res = await fetch('http://localhost:3030/users/login', {
+    const res = await fetch('https://w-o-m-23.azurewebsites.net/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

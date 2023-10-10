@@ -7,7 +7,8 @@ const PORT = process.env.PORT || 3030
 app.use(cors());
 
 const corsOptions = {
-    origin: ['http://localhost:3000'],
+    //origin: ['http://localhost:3000'],
+    origin: ['https://w-o-m-2023.azurewebsites.net'],
 };
 
 app.use(cors(corsOptions));
