@@ -7,8 +7,6 @@ const prisma = new PrismaClient()
 require('dotenv').config()
 
 
-
-
 // disable for production?
 router.get('/', async (req, res) => {
     try {
@@ -173,7 +171,6 @@ router.delete('/:id', async (req, res) => {
     const userId = req.params.id;
 
     try {
-
         const user = await prisma.users.delete({
             where: {
                 id: userId,
@@ -185,7 +182,6 @@ router.delete('/:id', async (req, res) => {
             user: user
         })
     } catch (err) {
-
         console.log(err)
         res.send({
             msg: 'ERROR',
