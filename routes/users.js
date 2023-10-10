@@ -72,15 +72,12 @@ router.post('/login', async (req, res) => {
         try {
             const response = await axios.post('http://localhost:3000/receiveToken', { token });
             console.log('Token sent successfully');
-            //console.log('Response from NTW:', response.data);
             //window.location.href = 'http://localhost:3000/public/index.html';
         } catch (error) {
             //console.error('Error sending token:', error.response);
             console.error('Error response status: ', error.response.status);
             console.error('Error response data: ', error.response.data);
         }
-
-        
 
         res.send({
             token: token, 
@@ -95,7 +92,7 @@ router.post('/login', async (req, res) => {
             userEmail: user.email
         }));
     } catch (error) {
-        // ... handle errors ...
+        console.log("Error from routers/user.js post /login function", error);
     }
 
     //window.location.href = 'http://localhost:3000/public/index.html';
