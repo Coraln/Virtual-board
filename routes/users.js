@@ -70,12 +70,12 @@ router.post('/login', async (req, res) => {
         // Send the token to the note taking project
         const axios = require('axios');
 
-
         console.log('Sending token:', token);
         console.log("Secret key to encode: " + process.env.JWT_SECRET);
 
         try {
-            const response = await axios.post('https://w-o-m-2023.azurewebsites.net/receiveToken', { token });
+            const response = await axios.post('http://localhost:3000/recieveToken', { token });
+            //const response = await axios.post('https://w-o-m-2023.azurewebsites.net/receiveToken', { token });
             console.log('Token sent successfully');
             
         } catch (error) {
