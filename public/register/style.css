@@ -1,20 +1,12 @@
-
-h3 {
-    font-size: 24px; /* Customize the heading font size */
+/* Reset some default styles */
+body, h1, p {
+    margin: 0;
+    padding: 0;
 }
 
-input[type="email"],
-input[type="password"],
-input[type="button"] {
-    width: 100%; 
-    padding: 10px;
-    margin-bottom: 10px; 
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
-}
-
+/* Apply a background color to the body */
 body {
-    background-color: #333;
+    background-color: #f2f2f2;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -22,7 +14,8 @@ body {
     padding-top: 10%;
 }
 
-.container {
+/* Style the container div */
+.cont {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -32,7 +25,18 @@ body {
     max-width: 100%; /* Ensure it doesn't exceed the viewport width */
 }
 
-input[type="button"] {
+/* Style input fields and button */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+button {
     width: 105%;
     padding: 10px;
     background-color: #007BFF;
@@ -42,6 +46,13 @@ input[type="button"] {
     cursor: pointer;
 }
 
-input[type="button"]:hover {
+button:hover {
     background-color: #0056b3;
+}
+
+/* Style the message paragraph */
+#passwordChangeMessage {
+    margin-top: 10px;
+    color: #007BFF;
+    font-weight: bold;
 }
