@@ -7,8 +7,8 @@ console.log("Start of app.js");
 async function logIn() {
   console.log("logIn function called");
   try {
-    const res = await fetch('http://localhost:3030/users/login', {
-    //const res = await fetch('https://w-o-m-23.azurewebsites.net/users/login', {
+    //const res = await fetch('http://localhost:3030/users/login', {
+    const res = await fetch('https://w-o-m-23.azurewebsites.net/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -40,8 +40,8 @@ async function logIn() {
 
             // Fetch private data from the note-taking server
             const token = localStorage.getItem('token');
-            //const privateData = await fetch('https://w-o-m-2023.azurewebsites.net/private', {
-              const privateData = await fetch('http://localhost:3000/private', {
+            const privateData = await fetch('https://w-o-m-2023.azurewebsites.net/private', {
+          //const privateData = await fetch('http://localhost:3000/private', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -53,8 +53,8 @@ async function logIn() {
             
 
             // Redirect to the desired location with token in url
-            //window.location.href = `https://w-o-m-2023.azurewebsites.net/public/index.html?token=${resJson.token}`;
-            window.location.href = `http://localhost:3000/public/index.html?token=${resJson.token}`;
+            window.location.href = `https://w-o-m-2023.azurewebsites.net/public/index.html?token=${resJson.token}`;
+            //window.location.href = `http://localhost:3000/public/index.html?token=${resJson.token}`;
 
         } else {
             // Handle login failure

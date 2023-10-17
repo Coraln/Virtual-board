@@ -27,7 +27,8 @@ app.use('/public', express.static(__dirname + '/public'))
 app.get('/private', authorizeToken, (req, res) => {
     // Forward the request to the note-taking server
     const token = req.headers.authorization;
-    fetch('http://localhost:3000/private', {
+    fetch('https://w-o-m-2023.azurewebsites.net/private', {
+    //fetch('http://localhost:3000/private', {
       method: 'GET',
       headers: {
         'Authorization': token

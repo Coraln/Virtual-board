@@ -7,7 +7,7 @@ async function register() {
     console.log("Attempting to create user with email: ", email, " and password: ", password);
   
     try {
-      const res = await fetch('http://localhost:3030/register', {
+      const res = await fetch('https://w-o-m-2023.azurewebsites.net/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

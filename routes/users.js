@@ -74,12 +74,12 @@ router.post('/login', async (req, res) => {
         console.log("Secret key to encode: " + process.env.JWT_SECRET);
 
         try {
-            const response = await axios.post('http://localhost:3000/recieveToken', { token });
-            //const response = await axios.post('https://w-o-m-2023.azurewebsites.net/receiveToken', { token });
+            //const response = await axios.post('http://localhost:3000/recieveToken', { token });
+            const response = await axios.post('https://w-o-m-2023.azurewebsites.net/receiveToken', { token });
             console.log('Token sent successfully');
             
         } catch (error) {
-            console.error("Cannot send token to localhost:3000/receiveToken");
+            console.error("Cannot send token to https://w-o-m-2023.azurewebsites.net/receiveToken");
         }
 
         res.send({
